@@ -2,7 +2,6 @@ package api
 
 import (
 	"bytes"
-	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -28,12 +27,13 @@ func CreateTweet(s string)  {
 		panic(err)
 	}
 
-	/**
-	 * TODO: use oauth v1 with signature and consumer key
-	 */
-	b64 := base64.StdEncoding.EncodeToString([]byte(os.Getenv("EMAIL") + ":" + os.Getenv("PASS")))	
-	req.Header.Add("Authentication", "Basic " + b64)
-	req.Header.Add("Authorization", "OAuth " + os.Getenv("BEARER"))
+	req.Header.Add("oauth_consumer_key", os.Getenv("oauth_consumer_key"))
+	req.Header.Add("oauth_nonce", "")
+	req.Header.Add("oauth_signature", "")
+	req.Header.Add("oauth_signature_method", "HMAC-SHA1")
+	req.Header.Add("oauth_timestamp", "")
+	req.Header.Add("oauth_token", "")
+	req.Header.Add("oauth_version", "1.0")
 
 	client := &http.Client{}
 
