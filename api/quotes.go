@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 )
 
@@ -33,6 +34,9 @@ func GetQuote() Quote {
 	q := m["quotes"].([]interface{})[0].(map[string]interface {})
 	a := q["author"].(string)
 	t := q["text"].(string)
+
+	log.Println("[quotes:author] " + a)
+	log.Println("[quotes:text] " + t)
 	
 	return Quote{
 		Content: t,

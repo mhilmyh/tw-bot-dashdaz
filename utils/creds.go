@@ -8,15 +8,15 @@ import (
 	"github.com/dghubble/oauth1"
 )
 
-type Client struct {
+type Creds struct {
 	ConsumerKey					string
 	ConsumerSecret 			string
 	AccessToken					string
 	AccessTokenSecret		string
 }
 
-func NewClient() *Client {
-	return &Client{
+func NewCreds() *Creds {
+	return &Creds{
 		ConsumerKey: os.Getenv("CONSUMER_KEY"),
 		ConsumerSecret: os.Getenv("CONSUMER_SECRET"),
 		AccessToken: os.Getenv("ACCESS_TOKEN"),
@@ -24,7 +24,7 @@ func NewClient() *Client {
 	}
 }
 
-func (c *Client) GetTwitterClient() (*twitter.Client, error) {
+func (c *Creds) GetTwitterClient() (*twitter.Client, error) {
 	conf := oauth1.NewConfig(c.ConsumerKey, c.ConsumerSecret)
 	token := oauth1.NewToken(c.AccessToken, c.AccessTokenSecret)
 
@@ -41,7 +41,7 @@ func (c *Client) GetTwitterClient() (*twitter.Client, error) {
 		return nil, err
 	}
 
-	log.Printf("_________[user]_________\n%+v\n_________[user]_________", user)
+	log.Println("[username] " + user.ScreenName)
 
 	return twClient, nil
 }

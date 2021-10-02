@@ -1,8 +1,6 @@
 package env
 
-import (
-	"os"
-)
+import "os"
 
 func Load() {
 	f, err := os.Open(".env")
